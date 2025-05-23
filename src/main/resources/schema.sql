@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS Organization (
 );
 -- Application_Master table
 CREATE TABLE IF NOT EXISTS Application_Master (
-    PersonalID SERIAL UNIQUE,
+    personalID SERIAL BIGSERIAL PRIMARY KEY,
     applicationID INT NOT NULL,
     examID INT NOT NULL,
     adhaarcard VARCHAR(14) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS Application_Master (
     attendance VARCHAR(20) NOT NULL DEFAULT 'Pending',  -- was ENUM('Pending','Present','Absent')
     marks INT NOT NULL DEFAULT 0,
     timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (examID, applicationID)
+    --PRIMARY KEY (examID, applicationID)   Handle This in Java application id and user id is same
 );
 
 -- Organizer_Organization table
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Organizer_Organization (
     organizerID INT NOT NULL,
     organizationID INT NOT NULL,
     timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (organizerID, organizationID)
+    --PRIMARY KEY (organizerID, organizationID) Handle it
 );
 -- Exam_Master table
 CREATE TABLE IF NOT EXISTS Exam_Master (
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS Question_Master (
     answer_key VARCHAR(20) NOT NULL,  -- was ENUM('optionA','optionB','optionC','optionD','optionE','optionF','UnSelected')
     question_marks INT NOT NULL,
     timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (questionID, examID)
+    --PRIMARY KEY (questionID, examID) Handle it
 );
 -- Attempt_Master table
 CREATE TABLE IF NOT EXISTS Attempt_Master (
