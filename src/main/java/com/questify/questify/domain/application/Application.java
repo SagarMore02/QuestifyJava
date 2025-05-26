@@ -1,6 +1,7 @@
 package com.questify.questify.domain.application;
 
 import com.questify.questify.domain.user.Status;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,6 +14,7 @@ public class Application {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "personalID", nullable = false)
   private long personalId;
   private long applicationId;
   private long examId;
