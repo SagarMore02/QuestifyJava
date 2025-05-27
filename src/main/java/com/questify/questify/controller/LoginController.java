@@ -1,6 +1,7 @@
 package com.questify.questify.controller;
 
 import com.questify.questify.common.dto.LoginDto;
+import com.questify.questify.controller.response.LoginResponse;
 import com.questify.questify.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,7 @@ public class LoginController {
   }
 
   @PostMapping("/login-packet")
-  public ResponseEntity<String> checkLoginCred(@RequestBody LoginDto loginDto) {
-    loginService.checkLoginCred(loginDto.getUsername(), loginDto.getPassword());
-    return ResponseEntity.ok("Login packet received");
+  public ResponseEntity<LoginResponse> checkLoginCred(@RequestBody LoginDto loginDto) {
+    return ResponseEntity.ok(loginService.checkLoginCred(loginDto.getUsername(), loginDto.getPassword()));
   }
 }

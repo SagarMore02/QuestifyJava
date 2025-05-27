@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS User_Master (
     first_name VARCHAR(10) NOT NULL,
     last_name VARCHAR(10),
     user_type VARCHAR(20) NOT NULL,  -- was ENUM('Applicant','Organization','Organizer')
-    Department VARCHAR(30) DEFAULT 'N/A', -- was ENUM('Computer-Science','Computer-Applications','Data-Science','IMCA','N/A')
+    Department VARCHAR(30) DEFAULT 'NULL', -- was ENUM('Computer-Science','Computer-Applications','Data-Science','IMCA','N/A')
     mobile VARCHAR(15) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     status VARCHAR(20) DEFAULT 'Pending',  -- was ENUM('Pending','Active','Inactive')
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS Organizer_Organization (
 CREATE TABLE IF NOT EXISTS Exam_Master (
     exam_id BIGSERIAL PRIMARY KEY,
     organizer_id BIGINT NOT NULL,
-    Department VARCHAR(30) DEFAULT 'N/A',  -- was ENUM('Computer-Science','Computer-Applications','Data-Science','IMCA','N/A')
+    Department VARCHAR(30) DEFAULT 'NULL',  -- was ENUM('Computer-Science','Computer-Applications','Data-Science','IMCA','N/A')
     name VARCHAR(15) NOT NULL,
     app_start_date DATE NOT NULL,
     app_end_date DATE NOT NULL,

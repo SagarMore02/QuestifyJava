@@ -14,4 +14,8 @@ public class PageController {
   public Resource getPage() {
     return new ClassPathResource("static/home.html");
   }
+
+  @GetMapping("/applicant-dash")
+  @ResponseBody
+  public Resource getApplicantDashPage() {return new ClassPathResource("static/html/ApplicantMain.html");}
 }

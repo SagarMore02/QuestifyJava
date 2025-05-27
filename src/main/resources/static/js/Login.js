@@ -30,8 +30,7 @@
              const data = await response.json();
  
              if (response.ok) {
-                 //alert('Login successful!');
-                 // Redirect or clear the form as needed
+                setCache(data.token);
                  window.top.location.href = data.redirectURL;
              } else {
                  alert('Login failed: ' + data.message);
@@ -137,8 +136,9 @@
          }
      });
  
- 
- 
+      function setCache(data) {
+        localStorage.setItem("token", data);
+      }
  
      const resetForm = document.getElementById("reset-password-form");
      resetForm.addEventListener("submit", async (event) => {

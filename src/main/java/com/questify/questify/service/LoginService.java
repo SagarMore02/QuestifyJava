@@ -1,5 +1,6 @@
 package com.questify.questify.service;
 
+import com.questify.questify.controller.response.LoginResponse;
 import com.questify.questify.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ public class LoginService {
   LoginService(UserFacade userFacade) {
     this.userFacade = userFacade;
   }
-  public void checkLoginCred(String username, String password) {
-    userFacade.verifyCredentials(username, password);
+  public LoginResponse checkLoginCred(String username, String password) {
+    return userFacade.verifyCredentials(username, password);
   }
 }
