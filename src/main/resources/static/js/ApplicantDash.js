@@ -16,16 +16,27 @@ document.addEventListener('DOMContentLoaded', function() {
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
     // Function to fetch exams registered by the applicant
-    function fetchExams() {
-        // Fetch the exams via an API (Replace the URL with your actual API endpoint)
-        fetch('/notice/exams')  // Assuming you have a route '/api/exams' to get the data
-            .then(response => response.json())
-            .then(data => {
-                populateExamList(data);
-                startAutoScroll();
-            })
-            .catch(error => console.error('Error fetching exams:', error));
-    }
+function fetchExams() {
+    fetch('http://localhost:8080/v1/questify/notice/exams', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')  // Replace with your actual token
+        },
+        body: JSON.stringify({}) // You can send some request data here if needed
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        populateExamList(data);
+        startAutoScroll();
+    })
+    .catch(error => console.error('Error fetching exams:', error));
+}
 
     // Function to populate the exam list with fetched data
     function populateExamList(exams) {
