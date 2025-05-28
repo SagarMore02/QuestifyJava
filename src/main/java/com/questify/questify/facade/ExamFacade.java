@@ -1,5 +1,6 @@
 package com.questify.questify.facade;
 
+import com.questify.questify.controller.request.ExamRequestDto;
 import com.questify.questify.domain.exam.Exam;
 import com.questify.questify.repository.ExamRepository;
 import java.util.List;
@@ -19,5 +20,10 @@ public class ExamFacade {
 
   public long countExamsByOrganizerId(long organizerId) {
     return examRepository.countByOrganizerId(organizerId);
+  }
+
+  public Exam saveExam(ExamRequestDto examRequestDto) {
+    Exam exam = Exam.createNew(examRequestDto);
+    return examRepository.save(exam);
   }
 }

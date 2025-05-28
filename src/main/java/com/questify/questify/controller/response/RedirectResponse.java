@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class LoginResponse implements Serializable {
+public class RedirectResponse implements Serializable {
 
   String token;
   String redirectUrl;

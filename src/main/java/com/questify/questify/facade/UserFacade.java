@@ -2,7 +2,7 @@ package com.questify.questify.facade;
 
 import com.questify.questify.Error.InvalidLoginCredentialsException;
 import com.questify.questify.Error.UserNotActiveException;
-import com.questify.questify.controller.response.LoginResponse;
+import com.questify.questify.controller.response.RedirectResponse;
 import com.questify.questify.domain.user.Status;
 import com.questify.questify.domain.user.User;
 import com.questify.questify.domain.user.UserType;
@@ -26,7 +26,7 @@ public class UserFacade {
     this.jwtService = jwtService;
   }
 
-  public LoginResponse verifyCredentials(String username, String password) {
+  public RedirectResponse verifyCredentials(String username, String password) {
     User user = userRepository.findByUsernameAndPassword(username, password)
         .orElseThrow(() -> new InvalidLoginCredentialsException("Invalid username or password"));
 
@@ -42,7 +42,7 @@ public class UserFacade {
     }
 
     String token = jwtService.generateToken(username);
-    return new LoginResponse(token, redirectUrl);
+    return new RedirectResponse(token, redirectUrl);
   }
 
   public User getLoggedinUser() {

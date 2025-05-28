@@ -47,6 +47,12 @@
     </div>
     
     <script>
+        const examID= new URLSearchParams(window.location.search).get('examId');
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert("Please login first.");
+            window.location.href = '/login';
+        }
         let questionCount = 1;
         let optionCount = 2; // Start with two options by default
         const maxOptions = 6; // Maximum number of options allowed
@@ -128,17 +134,20 @@
             }
     
             const questionData = {
+                examID: examID,
                 questionNumber: questionCount,
                 question: questionText,
-                question_marks: questionMarks,
+                questionMarks: questionMarks,
                 options: options.map((opt) => opt.text),
                 correctOpt: correctOption
             };
     
             try {
-                const response = await fetch('/addQuestion', {
+                const response = await fetch('/v1/questify/organizer/add-question', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json' },
                     body: JSON.stringify(questionData)
                 });
     

@@ -1,6 +1,6 @@
 package com.questify.questify.service;
 
-import com.questify.questify.controller.response.LoginResponse;
+import com.questify.questify.controller.response.RedirectResponse;
 import com.questify.questify.controller.response.ProfileResponse;
 import com.questify.questify.domain.user.User;
 import com.questify.questify.facade.UserFacade;
@@ -14,7 +14,7 @@ public class UserService {
   UserService(UserFacade userFacade) {
     this.userFacade = userFacade;
   }
-  public LoginResponse checkLoginCred(String username, String password) {
+  public RedirectResponse checkLoginCred(String username, String password) {
     return userFacade.verifyCredentials(username, password);
   }
 

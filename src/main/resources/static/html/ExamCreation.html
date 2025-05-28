@@ -61,10 +61,10 @@
                     <div class="input-box">
                         <span class="details">Department</span>
                         <select id="department" name="department" required>
-                            <option value="N/A" selected>N/A</option>
-                            <option value="Computer-Science">Computer Science</option>
-                            <option value="Computer-Applications">Computer Applications</option>
-                            <option value="Data-Science">Data Science</option>
+                            <option value="NULL" selected>N/A</option>
+                            <option value="ComputerScience">Computer Science</option>
+                            <option value="ComputerApplications">Computer Applications</option>
+                            <option value="DataScience">Data Science</option>
                             <option value="IMCA">IMCA</option>
                         </select>
                     </div>
@@ -146,7 +146,7 @@
                 return;
             }
 
-            if (dept === "N/A") {
+            if (dept === "NULL") {
            alert("Please select a valid department.");
             return;  // Prevent form submission
         }
@@ -205,10 +205,12 @@
                 return;
             }   
             try {
+            const token = localStorage.getItem('token');
             console.log("Exam Creation");
-            const response = await fetch('/addExam', {
+            const response = await fetch('http://localhost:8080/v1/questify/organizer/add-exam', {
                 method: 'POST',
                 headers: {
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(myformData)
@@ -217,9 +219,9 @@
             const data = await response.json();
 
             if (response.ok) {
-                //alert('Registration successful!');
-                // Redirect or clear the form as needed
-                window.location.href = data.redirectURL;
+                const redirectUrl = `${data.redirectUrl}?examId=${encodeURIComponent(data.token)}`;
+                alert(`Examid: ${data.token}`);
+                window.location.href = redirectUrl;
             } else {
                 alert('Registration failed: ' + data.message);
             }
@@ -227,11 +229,6 @@
             console.error('Error:', error);
             alert('Error submitting the form.');
         }
-
-
-            // Reset form after submission
-            //this.reset();
-            //alert('Exam created successfully!');
         });
     </script>
 </body>
