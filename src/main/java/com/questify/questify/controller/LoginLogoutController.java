@@ -1,8 +1,8 @@
 package com.questify.questify.controller;
 
-import com.questify.questify.common.dto.LoginDto;
+import com.questify.questify.controller.request.LoginDto;
 import com.questify.questify.controller.response.LoginResponse;
-import com.questify.questify.service.LoginService;
+import com.questify.questify.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LoginController {
+public class LoginLogoutController {
 
-  private final LoginService loginService;
+  private final UserService loginService;
 
   @Autowired
-  LoginController(LoginService loginService) {
+  LoginLogoutController(UserService loginService) {
     this.loginService = loginService;
   }
 

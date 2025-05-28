@@ -31,7 +31,7 @@
  
              if (response.ok) {
                 setCache(data.token);
-                 window.top.location.href = data.redirectURL;
+                 window.top.location.href = data.redirectUrl;
              } else {
                  alert('Login failed: ' + data.message);
              }

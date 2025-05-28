@@ -3,9 +3,21 @@ logging:
     org.springframework.security: DEBUG
 
 spring:
-  security:
   application:
     name: questify
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/questify
+    username: postgres
+    password: 123
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      pool-name: SpringBootJPAHikariCP
+      max-lifetime: 2000000
+      connection-timeout: 30000
 
   jpa:
     hibernate:
@@ -14,19 +26,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         show-sql: true
+
   sql:
     init:
       mode: always
-  datasource:
-    url: jdbc:postgresql://localhost:5432/questify
-    username: postgres
-    password: 123
-    driver-class-name: org.postgresql.Driver
-
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 5
-      idle-timeout: 30000
-      pool-name: SpringBootJPAHikariCP
-      max-lifetime: 2000000
-      connection-timeout: 30000

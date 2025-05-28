@@ -16,4 +16,8 @@ public class ExamFacade {
   public List<Exam> getExamFromApplicationId(Long applicationId) {
     return examRepository.findExamsByApplicationId(applicationId);
   }
+
+  public long countExamsByOrganizerId(long organizerId) {
+    return examRepository.countByOrganizerId(organizerId);
+  }
 }

@@ -1,4 +1,4 @@
-package com.questify.questify.common.dto;
+package com.questify.questify.controller.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

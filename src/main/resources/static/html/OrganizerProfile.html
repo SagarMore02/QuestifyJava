@@ -76,15 +76,27 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            //start
-            fetch('/profile')
+        const token = localStorage.getItem('token'); // assuming you stored it after login
+
+        if (!token) {
+            console.error("No token found in localStorage. Redirecting to login.");
+            window.location.href = '/html/Login.html';
+            return;
+        }
+        fetch('http://localhost:8080/v1/questify/profile', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
                 .then(response => response.json())
                 .then(data => {
                     if (data.username) {
                         console.log(data.username);
                         document.getElementById('username').textContent = data.username;
-                        document.getElementById('firstname').textContent = data.firstname;
-                        document.getElementById('lastname').textContent = data.lastname;
+                        document.getElementById('firstname').textContent = data.firstName;
+                        document.getElementById('lastname').textContent = data.lastName;
                         document.getElementById('email').textContent = data.email;
                         document.getElementById('phone').textContent = data.mobile;
                     } else {
@@ -110,7 +122,6 @@
 
             // Handle Forgot Password Form Submission
             async function first(){
-                event.preventDefault();
                 const email = document.getElementById('username').textContent;
 
                 try {

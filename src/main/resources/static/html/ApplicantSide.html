@@ -7,8 +7,20 @@
     <link rel="stylesheet" href="/css/ApplicantNavbar.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            //start
-            fetch('/profile')
+            const token = localStorage.getItem('token'); // assuming you stored it after login
+
+            if (!token) {
+                console.error("No token found in localStorage. Redirecting to login.");
+                window.location.href = '/html/Login.html';
+                return;
+            }
+            fetch('http://localhost:8080/v1/questify/profile', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.username) {

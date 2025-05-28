@@ -5,9 +5,14 @@ import com.questify.questify.Error.UserNotActiveException;
 import com.questify.questify.controller.response.LoginResponse;
 import com.questify.questify.domain.user.Status;
 import com.questify.questify.domain.user.User;
+import com.questify.questify.domain.user.UserType;
 import com.questify.questify.repository.UserRepository;
 import com.questify.questify.security.JwtService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 @Service
 public class UserFacade {
@@ -39,4 +44,18 @@ public class UserFacade {
     String token = jwtService.generateToken(username);
     return new LoginResponse(token, redirectUrl);
   }
+
+  public User getLoggedinUser() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    Optional<User> user = userRepository.findByUsername(authentication.getName());
+    if (user.isEmpty()) {
+      throw new UsernameNotFoundException("User not found");
+    }
+    return user.get();
+  }
+
+  public long countUsersByType(UserType userType) {
+    return userRepository.countByUserType(userType);
+  }
+
 }
