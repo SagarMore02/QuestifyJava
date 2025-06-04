@@ -7,8 +7,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity(name = "Question_Master")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Question {
 
   @Id

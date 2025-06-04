@@ -13,9 +13,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity(name = "Exam_Master")
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Exam {
 

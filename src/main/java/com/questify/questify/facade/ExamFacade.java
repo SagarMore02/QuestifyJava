@@ -22,6 +22,12 @@ public class ExamFacade {
     return examRepository.countByOrganizerId(organizerId);
   }
 
+  public long getExamMarksLimit(long examId) {
+    return examRepository.findById(examId)
+        .map(Exam::getTotalMarks)
+        .orElseThrow(() -> new IllegalArgumentException("Exam not found with id: " + examId));
+  }
+
   public Exam saveExam(ExamRequestDto examRequestDto) {
     Exam exam = Exam.createNew(examRequestDto);
     return examRepository.save(exam);

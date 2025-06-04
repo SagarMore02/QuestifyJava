@@ -220,7 +220,7 @@
 
             if (response.ok) {
                 const redirectUrl = `${data.redirectUrl}?examId=${encodeURIComponent(data.token)}`;
-                alert(`Examid: ${data.token}`);
+                //alert(`Examid: ${data.token}`);
                 window.location.href = redirectUrl;
             } else {
                 alert('Registration failed: ' + data.message);

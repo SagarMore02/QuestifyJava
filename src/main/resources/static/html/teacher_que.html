@@ -186,13 +186,16 @@
         // Simulate setting the test
         document.getElementById('setTest').addEventListener('click', async function() {
 
+
+            
+            if(myflag)
+            {
+
             if (!document.getElementById('questionForm').checkValidity()) {
                 document.getElementById('questionForm').reportValidity();
                 return;
             }
-            
-            if(myflag)
-            {
+
             const questionText = document.getElementById('question-text').value;
             const questionMarks = document.getElementById('question-marks').value;
             console.log("Is Nan: ",isNaN(questionMarks));
@@ -226,22 +229,24 @@
             }
     
             const questionData = {
+                examID: examID,
                 questionNumber: questionCount,
                 question: questionText,
-                question_marks: questionMarks,
+                questionMarks: questionMarks,
                 options: options.map((opt) => opt.text),
                 correctOpt: correctOption
             };
     
             try {
-                const response = await fetch('/addQuestion', {
+                const response = await fetch('/v1/questify/organizer/add-question', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` },
                     body: JSON.stringify(questionData)
                 });
     
                 const data = await response.json();
-    
+                console.log(data);
                 if (response.ok) {
                     console.log(`Question ${questionData.questionNumber} Added`);
                     document.getElementById("questionForm").reset();
@@ -260,7 +265,7 @@
                         </div>
                     `;
                     if (data.triggerSetTest) {
-                    //document.getElementById('setTest').click(); // Automatically click "Set Test"
+                    document.getElementById('setTest').click(); // Automatically click "Set Test"
                 }
                 } else {
                     
@@ -268,17 +273,20 @@
             } catch (error) {
                 
             }
-        }
-        myflag=true;
+          console.log("Not Ignored Add Question");
+          }
+
+          myflag=true;
             
-            const response = await fetch('/CheckTest', {
+                const response = await fetch(`/v1/questify/organizer/check-test?examId=${examID}`, {
                 method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` },
             });
     
             if (response.ok) {
-                //alert("Test has been successfully set.");
-                window.location.href = '/generattest';
+                alert("Test has been successfully set.");
+                    window.top.location.href = '/html/OrganizerDash.html';
             } else {
                 const errorData = await response.json();
                 alert(errorData.message);
